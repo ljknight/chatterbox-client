@@ -10,6 +10,8 @@ var escapeHTML = function(str) {
 };
 
 var username = 'anonymous';
+var rooms = [];
+var ourRoom = 'Double L';
 
 var display = function(user, message) {
   $('#chats').prepend('<div>'+user+': '+message+'</div>');
@@ -25,8 +27,22 @@ var fetch = function() {
     contentType: 'application/json',
     success: function (data) {
       $('#chats').empty();
-      for (var i = 0; i < 10; i++) {
-        display(escapeHTML(data.results[i].username), escapeHTML(data.results[i].text));
+      console.log(data);
+      for (var i = 0; i < 20; i++) {
+        // populate room dropdown with room names of all loaded messages
+        var room = escapeHTML(data.results[i].roomname);
+        if (rooms.indexOf(room) === -1) {
+          $('#room').append('<option value=' + room + '>' + room + '</option>');
+          rooms.push(room);
+        }
+
+        if ($('#room').val() === 'common-room') {
+          display(escapeHTML(data.results[i].username), escapeHTML(data.results[i].text));
+        } else {
+          if ($('#room').val() === room) {
+            display(escapeHTML(data.results[i].username), escapeHTML(data.results[i].text));
+          }
+        }
       }
     },
     error: function (data) {
@@ -44,7 +60,7 @@ var send = function(message) {
     data: JSON.stringify({
       username: username,
       text: message,
-      roomname: 'Double L'
+      roomname: ourRoom
     }),
     dataType: 'JSON',
     contentType: 'application/json',
@@ -70,9 +86,18 @@ $(document).on('click', '.submit-message', function() {
   $('.add-message').val('');
 });
 
-// setInterval(function() {fetch();}, 5000);
-
 $(document).on('click', '.load-chats', function() {
   fetch();
 });
 
+$(document).on('change', '#room', function() {
+  fetch();
+  ourRoom = $('#room').val();
+});
+
+$(document).on('click', '.submit-room', function() {
+  var room = escapeHTML($('.add-room').val());
+  $('.add-room').val('');
+  $('#room').append('<option value=' + room + '>' + room + '</option>');
+  rooms.push(room);
+})
