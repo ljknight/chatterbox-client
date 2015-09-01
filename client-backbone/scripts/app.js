@@ -12,25 +12,25 @@ var Chat = Backbone.Model.extend({
   }
 });
 
-var ChatView = Backbone.View.extend({
-  initialize: function() {
-    // this.model.render();
-  },
+// var ChatView = Backbone.View.extend({
+//   initialize: function() {
+//     // this.model.render();
+//   },
 
-  render: function() {
-    var html = [
-      '<div class="message-container">',
-        '<div class="add-friend">',
-          this.model.get('user'),
-        '</div>',
-        // ': ',
-        this.model.get('message'),
-      '</div>'
-    ].join('');
+//   render: function() {
+//     var html = [
+//       '<div class="message-container">',
+//         '<div class="add-friend">',
+//           this.model.get('user'),
+//         '</div>',
+//         ': ',
+//         this.model.get('message'),
+//       '</div>'
+//     ].join('');
 
-    return this.$el.html(html);
-  }
-});
+//     return this.$el.html(html);
+//   }
+// });
 
 var Chats = Backbone.Collection.extend({
   model: Chat
@@ -47,34 +47,70 @@ var ChatsView = Backbone.View.extend({
     // }));
 
     // return this.$el;
+    // var html = [
+    //   '<ul>',
+    //   '</ul>'
+    // ].join('');
+
     var html = [
-      '<ul>',
-      '</ul>'
+      '<div>',
+      '</div>'
     ].join('');
+
+    // var html2 = [
+    //   '<div class="message-container">',
+    //     '<div class="add-friend">',
+    //       this.get('user'),
+    //     '</div>',
+    //     ': ',
+    //     this.get('message'),
+    //   '</div>'
+    // ].join('');
 
     this.$el.html(html);
     /* Render each model in the collection as a list item (<li>).
      * Remember, we have the underscore functions: */
-    this.$el.find('ul').append(this.model.map(function(chat) {
-      return '<li>'+chat.get('message')+'</li>';
+    this.$el.find('div').append(this.model.map(function(chat) {
+      return [
+        '<div class="message-container">',
+          '<div class="add-friend">',
+            chat.get('user'),
+          '</div>',
+          ': ',
+          chat.get('message'),
+        '</div>'
+      ].join('');
     }));
 
     return this.$el;
   }
 });
 
-var chatList = [
-  new Chat('a', 'message', 'room'),
-  new Chat('b', 'message', 'room'),
-  new Chat('c', 'message', 'room'),
-  new Chat('d', 'message', 'room')
-];
+var chatList = [];
 
-var chats = new Chats(chatList);
+$.ajax({
+  // This is the url you should use to communicate with the parse API server.
+  url: 'https://api.parse.com/1/classes/chatterbox',
+  type: 'GET',
+  // data: JSON.stringify(message),
+  dataType: 'JSON',
+  contentType: 'application/json',
+  success: function (data) {
+    for (var i = 0; i < 20; i++) {
+      chatList.push(new Chat(data.results[i].username, data.results[i].text, data.results[i].roomname));
+    }
+    var chats = new Chats(chatList);
 
-var chatsView = new ChatsView( { model: chats } );
+    var chatsView = new ChatsView( { model: chats } );
 
-$('#chats').append(chatsView.render());
+    $('#chats').append(chatsView.render());
+  },
+  error: function (data) {
+    // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
+    console.error('chatterbox: Error!');
+  }
+});
+
 
 // var username = 'anonymous';
 // var rooms = [];
