@@ -12,9 +12,14 @@ var escapeHTML = function(str) {
 var username = 'anonymous';
 var rooms = [];
 var ourRoom = 'Double L';
+var friends = [];
 
 var display = function(user, message) {
-  $('#chats').prepend('<div>'+user+': '+message+'</div>');
+  if (friends.indexOf(user) === -1) {
+    $('#chats').prepend('<div> <div class="add-friend">'+user+'</div>'+': '+message+'</div>');
+  } else {
+    $('#chats').prepend('<div class="friend"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>');
+  }
 };
 
 var fetch = function() {
@@ -27,7 +32,7 @@ var fetch = function() {
     contentType: 'application/json',
     success: function (data) {
       $('#chats').empty();
-      console.log(data);
+      // console.log(data);
       for (var i = 0; i < 20; i++) {
         // populate room dropdown with room names of all loaded messages
         var room = escapeHTML(data.results[i].roomname);
@@ -101,3 +106,8 @@ $(document).on('click', '.submit-room', function() {
   $('#room').append('<option value=' + room + '>' + room + '</option>');
   rooms.push(room);
 })
+
+$(document).on('click', '.add-friend', function() {
+  friends.push(escapeHTML($(this).text()));
+  fetch();
+});
