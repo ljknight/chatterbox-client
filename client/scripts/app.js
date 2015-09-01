@@ -16,9 +16,9 @@ var friends = [];
 
 var display = function(user, message) {
   if (friends.indexOf(user) === -1) {
-    $('#chats').prepend('<div> <div class="add-friend">'+user+'</div>'+': '+message+'</div>');
+    $('#chats').prepend('<div class="message-container"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>');
   } else {
-    $('#chats').prepend('<div class="friend"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>');
+    $('#chats').prepend('<div class="message-container friend"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>');
   }
 };
 
