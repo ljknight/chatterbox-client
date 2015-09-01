@@ -16,9 +16,9 @@ var friends = [];
 
 var display = function(user, message) {
   if (friends.indexOf(user) === -1) {
-    $('#chats').prepend('<div class="message-container"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>');
+    $('<div class="message-container"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>').appendTo($('#chats'));
   } else {
-    $('#chats').prepend('<div class="message-container friend"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>');
+    $('<div class="message-container friend"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>').appendTo($('#chats'));
   }
 };
 
@@ -83,7 +83,6 @@ fetch();
 
 $(document).on('click', '.submit-name', function() {
   username = escapeHTML($('.add-username').val());
-  $('.add-username').val('');
 });
 
 $(document).on('click', '.submit-message', function() {

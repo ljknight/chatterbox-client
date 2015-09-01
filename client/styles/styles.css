@@ -1,12 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background: #eee;
+    /*background: #eee;*/
+    background-image: url('../images/whitebrick.jpg');
+    background-size: 100%;
     text-align: center;
     padding: 0 25px;
     font-family: arial, sans-serif;
 }
 
 #main, #chats {
-    width: 500px;
+    width: 600px;
     margin: auto;
     text-align: left;
     background: #8e8bbc;
@@ -103,8 +109,28 @@ form input[type=text] {
     font-weight: bold;
 }
 
+.username-fields, .message-fields {
+    margin-bottom: 20px;
+}
+
 input {
+    padding: 5px;
+}
+
+input, button, select {
+    border-width: 0px;
     border-radius: 5px;
-    padding: 2px;
-    border: 1px solid #d2d2d2;
+    height: 25px;
+}
+
+button {
+    background-color: white;
+}
+
+input, select {
+    margin-right: 10px;
+}
+
+select {
+    max-width: 200px
 }

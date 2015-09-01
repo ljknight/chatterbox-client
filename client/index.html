@@ -15,10 +15,14 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-      <input type="text" class="add-username" placeholder="add username"></input>
-      <button type="submit" class="submit-name">Submit username</button>
-      <input type="text" class="add-message" placeholder="compose message"></input>
-      <button type="submit" class="submit-message">Submit message</button>
+      <div class="username-fields">
+        <input type="text" class="add-username" placeholder="add username"></input>
+        <button type="submit" class="submit-name">Submit username</button>
+      </div>
+      <div class="message-fields">
+        <input type="text" class="add-message" placeholder="compose message"></input>
+        <button type="submit" class="submit-message">Submit message</button>
+      </div>
       <button class="load-chats">Load chats</button>
       <p>Select a room: </p>
       <select id="room">
