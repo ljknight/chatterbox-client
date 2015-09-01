@@ -38,38 +38,17 @@ var Chats = Backbone.Collection.extend({
 
 var ChatsView = Backbone.View.extend({
   intitialize: function() {
-    // this.model.render();
   },
 
   render: function() {
-    // this.$el.append(this.model.map(function(chat) {
-    //   return '<div>' + chat + '</div>';
-    // }));
-
-    // return this.$el;
-    // var html = [
-    //   '<ul>',
-    //   '</ul>'
-    // ].join('');
 
     var html = [
       '<div>',
       '</div>'
     ].join('');
 
-    // var html2 = [
-    //   '<div class="message-container">',
-    //     '<div class="add-friend">',
-    //       this.get('user'),
-    //     '</div>',
-    //     ': ',
-    //     this.get('message'),
-    //   '</div>'
-    // ].join('');
-
     this.$el.html(html);
-    /* Render each model in the collection as a list item (<li>).
-     * Remember, we have the underscore functions: */
+
     this.$el.find('div').append(this.model.map(function(chat) {
       return [
         '<div class="message-container">',
@@ -88,29 +67,38 @@ var ChatsView = Backbone.View.extend({
 
 var chatList = [];
 
-$.ajax({
-  // This is the url you should use to communicate with the parse API server.
-  url: 'https://api.parse.com/1/classes/chatterbox',
-  type: 'GET',
-  // data: JSON.stringify(message),
-  dataType: 'JSON',
-  contentType: 'application/json',
-  success: function (data) {
-    for (var i = 0; i < 20; i++) {
-      chatList.push(new Chat(data.results[i].username, data.results[i].text, data.results[i].roomname));
+var fetch = function() {
+  $.ajax({
+    // This is the url you should use to communicate with the parse API server.
+    url: 'https://api.parse.com/1/classes/chatterbox',
+    type: 'GET',
+    // data: JSON.stringify(message),
+    dataType: 'JSON',
+    contentType: 'application/json',
+    success: function (data) {
+      chatList = [];
+      $('#chats').empty();
+      for (var i = 0; i < 20; i++) {
+        chatList.push(new Chat(data.results[i].username, data.results[i].text, data.results[i].roomname));
+      }
+      var chats = new Chats(chatList);
+
+      var chatsView = new ChatsView( { model: chats } );
+
+      $('#chats').append(chatsView.render());
+    },
+    error: function (data) {
+      // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
+      console.error('chatterbox: Error!');
     }
-    var chats = new Chats(chatList);
+  });
+};
 
-    var chatsView = new ChatsView( { model: chats } );
+fetch();
 
-    $('#chats').append(chatsView.render());
-  },
-  error: function (data) {
-    // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
-    console.error('chatterbox: Error!');
-  }
+$(document).on('click', '.load-chats', function() {
+  fetch();
 });
-
 
 // var username = 'anonymous';
 // var rooms = [];
@@ -193,9 +181,6 @@ $.ajax({
 //   $('.add-message').val('');
 // });
 
-// $(document).on('click', '.load-chats', function() {
-//   fetch();
-// });
 
 // $(document).on('change', '#room', function() {
 //   fetch();
