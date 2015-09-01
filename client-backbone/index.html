@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>chatterbox</title>
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- dependencies -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/backbone/backbone.js"></script>
+    <!-- your scripts -->
+    <script src="env/config.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <h1>chatterbox</h1>
+      <div class="username-fields">
+        <input type="text" class="add-username" placeholder="add username"></input>
+        <button type="submit" class="submit-name">Submit username</button>
+      </div>
+      <div class="message-fields">
+        <input type="text" class="add-message" placeholder="compose message"></input>
+        <button type="submit" class="submit-message">Submit message</button>
+      </div>
+      <button class="load-chats">Load chats</button>
+      <p>Select a room: </p>
+      <select id="room">
+        <option selected="selected" value="common-room">Common Room</option>
+        <option value="Double L">Double L</option>
+      </select>
+      <input type="text" class="add-room" placeholder="add a room"></input>
+      <button type="submit" class="submit-room">Add a room</button>
+    </div>
+    <div id="chats"></div>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>
