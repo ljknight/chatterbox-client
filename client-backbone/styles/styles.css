@@ -6,9 +6,10 @@ body {
     /*background: #eee;*/
     background-image: url('../images/whitebrick.jpg');
     background-size: 100%;
+    background-attachment: fixed;
     text-align: center;
     padding: 0 25px;
-    font-family: 'Lato', sans-serif;;
+    font-family: 'Lato', sans-serif;
 }
 
 #main, #chats {
@@ -50,6 +51,10 @@ body {
     font-size: 12px;
     color: green;
     line-height: 13px;
+}
+
+#chats {
+    min-height: 800px;
 }
 
 form {
@@ -95,6 +100,7 @@ form input[type=text] {
     margin-bottom: 15px;
     padding: 15px;
     background-color: white;
+    min-height: 51px;
 }
 
 .friend {
