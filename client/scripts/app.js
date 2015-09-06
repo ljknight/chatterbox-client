@@ -1,8 +1,3 @@
-var app = {};
-app.init = function() {
-
-};
-
 var escapeHTML = function(str) {
   var div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
@@ -14,8 +9,8 @@ var rooms = [];
 var ourRoom = 'Double L';
 var friends = [];
 
-var display = function(user, message) {
-  if (friends.indexOf(user) === -1) {
+var display = function(user, message) { // creates template for user + message
+  if (friends.indexOf(user) === -1) { // check if user exists on friend's list - if yes, add friend class
     $('<div class="message-container"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>').appendTo($('#chats'));
   } else {
     $('<div class="message-container friend"> <div class="add-friend">'+user+'</div>'+': '+message+'</div>').appendTo($('#chats'));
@@ -32,17 +27,15 @@ var fetch = function() {
     contentType: 'application/json',
     success: function (data) {
       $('#chats').empty();
-      // console.log(data);
       for (var i = 0; i < 20; i++) {
-        // populate room dropdown with room names of all loaded messages
-        var room = escapeHTML(data.results[i].roomname);
-        if (rooms.indexOf(room) === -1) {
-          $('#room').append('<option value=' + room + '>' + room + '</option>');
+        var room = escapeHTML(data.results[i].roomname); 
+        if (rooms.indexOf(room) === -1) { // check if room exists on room list
+          $('#room').append('<option value=' + room + '>' + room + '</option>'); // populate room dropdown with room names of all loaded messages
           rooms.push(room);
         }
 
         if ($('#room').val() === 'common-room') {
-          display(escapeHTML(data.results[i].username), escapeHTML(data.results[i].text));
+          display(escapeHTML(data.results[i].username), escapeHTML(data.results[i].text)); // gets username and text from ajax call, formats with display function
         } else {
           if ($('#room').val() === room) {
             display(escapeHTML(data.results[i].username), escapeHTML(data.results[i].text));
@@ -95,8 +88,8 @@ $(document).on('click', '.load-chats', function() {
 });
 
 $(document).on('change', '#room', function() {
-  fetch();
   ourRoom = $('#room').val();
+  fetch();
 });
 
 $(document).on('click', '.submit-room', function() {
@@ -104,7 +97,7 @@ $(document).on('click', '.submit-room', function() {
   $('.add-room').val('');
   $('#room').append('<option value=' + room + '>' + room + '</option>');
   rooms.push(room);
-})
+});
 
 $(document).on('click', '.add-friend', function() {
   friends.push(escapeHTML($(this).text()));

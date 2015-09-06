@@ -4,112 +4,34 @@
 
 body {
     /*background: #eee;*/
-    background-image: url('../images/whitebrick.jpg');
-    background-size: 100%;
-    text-align: center;
+    background-attachment: fixed;
+    background-image: url('../images/small_steps.png');
+    background-size: repeat;
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
     padding: 0 25px;
-    font-family: arial, sans-serif;
+    text-align: center;
 }
 
 #main, #chats {
-    width: 600px;
-    margin: auto;
-    text-align: left;
-    background: #8e8bbc;
+    background: #3C62EE;
+    display: inline-block;
+    float: left;
+    margin-left: 5%;
+    margin-right: 5%;
     padding: 50px 60px;
-    border: solid #ddd;
-    border-width: 0 1px 1px 1px;
+    text-align: left;
+    width: 40%;
+}
+
+#main {
+    margin-bottom: 30px;
 }
 
 #main h1 {
-    margin-top: 0;
-    font-size: 35px;
-    margin-bottom: 5px;
-    padding: 5px;
-}
-
-#main h1 span {
-    font-style:italic;
-}
-
-#main ul {
-    padding-left: 20px;
-}
-
-#main .error {
-    border: 1px solid red;
-    background: #FDEFF0;
-    padding: 20px;
-}
-
-#main .success {
-    margin-top: 25px;
-}
-
-#main .success code {
-    font-size: 12px;
-    color: green;
-    line-height: 13px;
-}
-
-form {
-    padding: 20px;
-    padding-left: 0;
-    margin-bottom: 20px;
-}
-
-form input[type=text] {
-    margin-right: 10px;
-    width: 70%;
-    font-size: 12px;
-    padding: 5px;
-}
-
-.chat {
-    padding: 5px;
-    margin-bottom: 5px;
-    background-color: #eee;
-}
-
-.chat .username {
-    font-weight: 800;
-}
-
-.chat:hover {
-    background-color: #ddd;
-}
-
-.spinner {
-    float: right;
-    height: 46px;
-    margin-bottom: 5px;
-}
-
-.spinner img {
-    padding: 10px;
-}
-
-.message-container {
-    border: 1px solid #d2d2d2;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    padding: 15px;
-    background-color: white;
-}
-
-.friend {
-    font-weight: bold;
-}
-
-.add-friend {
-    display: inline;
-}
-
-.add-friend:hover {
-    font-weight: bold;
-}
-
-.username-fields, .message-fields {
+    color: #03C9EE;
+    font-size: 45px;
+    margin-top: -20px;
     margin-bottom: 20px;
 }
 
@@ -131,6 +53,54 @@ input, select {
     margin-right: 10px;
 }
 
+h3 {
+    color: #03C9EE;
+    font-family: 'Nunito', sans-serif;
+}
+
 select {
     max-width: 200px
 }
+/* makes sure chats background doesn't disappear on 'load chat' empty */
+#chats {
+    min-height: 800px; 
+}
+
+.chat {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #eee;
+}
+
+.chat:hover {
+    background-color: #ddd;
+}
+
+.message-container {
+    background-color: white;
+    border: 1px solid #d2d2d2;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    min-height: 51px;
+    padding: 15px;
+}
+
+.friend {
+    border: 5px solid #EEE83C;
+    /*font-weight: bold;*/
+}
+
+.add-friend {
+    display: inline;
+}
+
+.add-friend:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.username-fields, .message-fields {
+    margin-bottom: 20px;
+}
+
+
